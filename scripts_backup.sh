@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# No user defined variables
 now="$(date +'%Y%m%d')"
 
+# User defined variables
 bkp_dir="$HOME/backup/scripts"
 old_dir="$bkp_dir/old"
 bkp_file="${bkp_dir}"/"${now}"_scripts.tar.xz

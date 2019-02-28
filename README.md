@@ -8,10 +8,10 @@ I have written three scripts in BASH for automatic backup of the [Mantis Bug Tra
 
 The scripts rely on:
 
-..* `xz-utils` for the archiving. I have found that the `xzip` compression level is the highest compared to other compressing formats
-..* [rclone](https://rclone.org/) for cloud storage upload. Rclone is a command line program to sync files and directories to and from myriads of online cloud storage search providers. 
-..* mysqldump - Mysqldump can be used to dump a database or a collection of databases for backup or transfer to another SQL server. This package is most likely already preinstalled on your system. 
-..* git - GIT is needed to clone the project to your server (optional). You can of course download the zip and extract it on your Mantis running server but I find `git` more convenient. 
+* `xz-utils` for the archiving. I have found that the `xzip` compression level is the highest compared to other compressing formats
+* [rclone](https://rclone.org/) for cloud storage upload. Rclone is a command line program to sync files and directories to and from myriads of online cloud storage search providers. 
+* mysqldump - Mysqldump can be used to dump a database or a collection of databases for backup or transfer to another SQL server. This package is most likely already preinstalled on your system. 
+* git - GIT is needed to clone the project to your server (optional). You can of course download the zip and extract it on your Mantis running server but I find `git` more convenient. 
 
 You can install those packages in Ubuntu using the following command: 
 ```
@@ -73,7 +73,7 @@ Choose a number from below, or type in your own value
    \ "yandex"
 Storage> 7
 ```
-Please note that *Google Drive* is actually number *7* and not *6*. 
+Please note that **Google Drive** is actually number **7** and not **6**. 
 Next two prompts will be about your `client_id` and `client_secret`, you can leave them blank as suggested and then you will be asked if you want to auto configure it.
 ```
 Google Application Client Id - leave blank normally.
@@ -88,9 +88,9 @@ y) Yes
 n) No
 y/n> n
 ```
-Here it is very *important* to type *y* only if you are connected directly to the server and have a graphical user interface with installed Internet browser. In that case `rclone` will present you with a self-hosted link to authorize `rclone` for read/write access to your cloud storage. 
-I consider selecting *n* at this question as a safer option. In that case `rclone` will generate rather long link for authorization and upon authorizing it you will get an authorization code which you need to insert in the command line. With that your `rclone` configuration is done.
-<br><br>
+Here it is very **important** to type **y** only if you are connected directly to the server and have a graphical user interface with installed Internet browser. In that case `rclone` will present you with a self-hosted link to authorize `rclone` for read/write access to your cloud storage. 
+I consider selecting **n** at this question as a safer option. In that case `rclone` will generate rather long link for authorization and upon authorizing it you will get an authorization code which you need to insert in the command line. With that your `rclone` configuration is done.
+<br>
 In the Debugging Section you can find information how you can check if your `rclone` configuration is correct. 
 
 ### Mysqldump
@@ -110,7 +110,6 @@ Then you need to change the permissions to the file to rw only for the owner:
 ```
 chmod 600 ~/.my.cnf
 ```
-<br><br>
 In the Debugging Section you can find information how you can check if your `mysqldump` configuration is correct.
 
 ## Installation
@@ -135,19 +134,19 @@ This will execute all three scripts at 1AM in the night. You are free to edit th
 
 There are three different scripts. I didn't combine the scripts into one because I think these scripts could be used for other purposes and are showing in general how you can backup configuration files, databases or whole directories. <br>
 The scripts are containing four functions: 
-..* dir_creation - during this function they are checking if the `$bkp_dir` and `$old_dir` are existing and if not it is creating them
-..* cfg_backup - creates a backup of the configured scripts/database/directory and compress it either to `.xz`, `.sql.xz` or `.tar.xz`
-..* initial_upload - this function is executed only in case there aren't any files in the `$bkp_dir`. The script is creating a backup and it pushes the backup to `$rclone_dst`. This function normally should be executed just once.
-..* cfg_upload - here it is looping through the files in `$bkp_dir` evaluating the md5sum of the old backup file. Then both the md5sum of the new backup and old backup are compared. If the md5sum is different then the old backup is moved to `$old_dir` and the new backup file is pushed to the `$rclone_dst`. If not the new backup is removed and the script is exited.  
+* dir_creation - during this function they are checking if the `$bkp_dir` and `$old_dir` are existing and if not it is creating them
+* cfg_backup - creates a backup of the configured scripts/database/directory and compress it either to `.xz`, `.sql.xz` or `.tar.xz`
+* initial_upload - this function is executed only in case there aren't any files in the `$bkp_dir`. The script is creating a backup and it pushes the backup to `$rclone_dst`. This function normally should be executed just once.
+* cfg_upload - here it is looping through the files in `$bkp_dir` evaluating the md5sum of the old backup file. Then both the md5sum of the new backup and old backup are compared. If the md5sum is different then the old backup is moved to `$old_dir` and the new backup file is pushed to the `$rclone_dst`. If not the new backup is removed and the script is exited.  
 
 ### General Variables
 
 Every script contains at the top an user defined part, consisting of the following files:
 
-..* bkp_dir - directory where the backup will be stored. If it doesn't exist the script will create it during the execution of the `dir_creation` function
-..* old_dir - directory where the old backups will be stored. 
-..* bkp_file - the name of the backup file. In my scripts I am appending the current date to it in the format: YYYYMMDD but you can change that format using the `#now` variable
-..* rclone_dst - that's the destination path of your cloud storage where you want the files to be uploaded. 
+* bkp_dir - directory where the backup will be stored. If it doesn't exist the script will create it during the execution of the `dir_creation` function
+* old_dir - directory where the old backups will be stored. 
+* bkp_file - the name of the backup file. In my scripts I am appending the current date to it in the format: YYYYMMDD but you can change that format using the `#now` variable
+* rclone_dst - that's the destination path of your cloud storage where you want the files to be uploaded. 
 
 ### db_backup.sh
 
@@ -175,7 +174,7 @@ excl_dir="/path/for/directory/exclusion"
 excl_file="/path/for/file/exclusion"
 ```
 Here the backup is stored as `.tar.xz` in order to preserve the directory structure.
-<br><br>
+<br>
 Please note that I am not completely sure which directories need to be saved and this depends also to your configuration. 
 
 ### scripts_backup.sh
@@ -198,7 +197,7 @@ You can check if the mysqldump is properly configured executing:
 ```
 mysqldump mantis_db > mantisdb_backup.sql
 ```
-Again you need to replace `mantis_db` with the actual name of the database you want to backup and the mantisdb_backup.sql is actually the backup of this database. During this you should not be prompted for username and password and the `mantisdb_backup` size should be bigger than *0*. 
+Again you need to replace `mantis_db` with the actual name of the database you want to backup and the mantisdb_backup.sql is actually the backup of this database. During this you should not be prompted for username and password and the `mantisdb_backup` size should be bigger than **0**. 
 If it asks you for username/password, doesn't work or creates an empty dump file it means that you have a problem with the `.my.cnf` configuration or the credentials provided in the file are wrong. You can easily check that by simply connecting to the MySQL database:
 ```
 mysql -u mantisdb_username -p

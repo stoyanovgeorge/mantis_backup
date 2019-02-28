@@ -3,7 +3,7 @@
 # Non-user defined variables
 now="$(date +'%Y%m%d')"
 
-# Userdefined variables
+# User defined variables
 bkp_dir="$HOME/backup/db"
 old_dir="$bkp_dir/old"
 bkp_file="${bkp_dir}"/"${now}"_mantis_db.sql
